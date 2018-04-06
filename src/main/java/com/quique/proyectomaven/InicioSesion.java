@@ -80,10 +80,15 @@ public class InicioSesion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
-        Codigo.crearRepositorio();
+
+        Codigo.crearRepositorio(usu.getText(),ctra.getText());
+        this.setVisible(false);
+        Menu men = new Menu();
+        men.setVisible(true);
     }//GEN-LAST:event_sesionActionPerformed
 
 
