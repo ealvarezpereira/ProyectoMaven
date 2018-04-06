@@ -109,18 +109,19 @@ public class ElegirPath extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
-        
+
         int seleccion = elegirpath.showDialog(null, "Abrir");
-        switch(seleccion){
-        
+        switch (seleccion) {
+
             case JFileChooser.APPROVE_OPTION:
                 urlpath = elegirpath.getSelectedFile().getAbsolutePath();
                 System.out.println(urlpath);
                 break;
             case JFileChooser.CANCEL_OPTION:
                 break;
-            default: System.out.println("Error.");
-                
+            default:
+                System.out.println("Error.");
+
         }
 
     }//GEN-LAST:event_pathActionPerformed
@@ -133,7 +134,9 @@ public class ElegirPath extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         urlclone = url.getText();
         this.setVisible(false);
+
         Codigo.hacerClonado(url.getText(), urlpath);
+        urlpath = null;
         men.setVisible(true);
     }//GEN-LAST:event_aceptarActionPerformed
 
