@@ -5,8 +5,11 @@
  */
 package com.quique.proyectomaven;
 
+import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.kohsuke.github.GHCreateRepositoryBuilder;
 import org.kohsuke.github.GitHub;
 
@@ -18,16 +21,30 @@ public class Codigo {
 
     static GitHub github;
 
-    public static void crearRepositorio() {
+    public static void crearRepositorio(String usu, String ctra) {
 
         try {
-            github = GitHub.connectUsingPassword(InicioSesion.usu.getName(), InicioSesion.ctra.getName());
+            github = GitHub.connectUsingPassword(usu,ctra);
             String repoNombre = JOptionPane.showInputDialog("Introduzca el nombre del repositorio");
             GHCreateRepositoryBuilder repo = github.createRepository(repoNombre);
             repo.create();
         } catch (IOException ex) {
             System.out.println("Error repositorio. " + ex);
         }
+    }
+
+    public static void hacerClonado(String urlclone, String urlpath) {           
+        
+        try {
+            Git.cloneRepository()
+                    .setURI(ElegirPath.urlclone)
+                    .setDirectory(new File(ElegirPath.urlpath))
+                    .call();
+        } catch (GitAPIException ex) {
+
+            System.out.println("Error al clonar repositorio. " + ex);
+        }
+
     }
 
 }
