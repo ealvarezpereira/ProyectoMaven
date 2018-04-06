@@ -5,6 +5,9 @@
  */
 package com.quique.proyectomaven;
 
+import static com.quique.proyectomaven.ElegirPath.elegirpath;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author quique
@@ -14,8 +17,13 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    static String urlpath;
+
     public Menu() {
         initComponents();
+
+        elegirpath = new JFileChooser();
+        elegirpath.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     }
 
     /**
@@ -33,7 +41,7 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear Repositorio", "Clonar Repositorio", "Commit", "Push" }));
+        opciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear Repositorio", "Clonar Repositorio", "Inicializar Repositorio", "Commit", "Push" }));
 
         baceptar.setText("Aceptar");
         baceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,24 +92,42 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_bcancelarActionPerformed
 
     private void baceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baceptarActionPerformed
-        
-        if (opciones.getSelectedIndex() == 0){
+
+        if (opciones.getSelectedIndex() == 0) {
             this.setVisible(false);
             InicioSesion ini = new InicioSesion();
             ini.setVisible(true);
-        }else if(opciones.getSelectedIndex() == 1){
-        
+        } else if (opciones.getSelectedIndex() == 1) {
+
             this.setVisible(false);
-            ElegirPath prueba = new ElegirPath();
-            prueba.setVisible(true);
+            ElegirPath a = new ElegirPath();
+            a.setVisible(true);
+        } else if (opciones.getSelectedIndex() == 2) {
+            this.setVisible(false);
+            int seleccion = elegirpath.showDialog(null, "Abrir");
+            switch (seleccion) {
+
+                case JFileChooser.APPROVE_OPTION:
+                    urlpath = elegirpath.getSelectedFile().getAbsolutePath();
+                    System.out.println(urlpath);
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                    break;
+                default:
+                    System.out.println("Error.");
+
+            }
+            Codigo.inicializarRepositorio((urlpath + "/.git"));
+            this.setVisible(true);
+
         }
-        
-        
+
+
     }//GEN-LAST:event_baceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton baceptar;
     private javax.swing.JButton bcancelar;
-    private javax.swing.JComboBox<String> opciones;
+    public static javax.swing.JComboBox<String> opciones;
     // End of variables declaration//GEN-END:variables
 }

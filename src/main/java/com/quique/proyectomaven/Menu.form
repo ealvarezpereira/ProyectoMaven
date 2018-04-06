@@ -56,16 +56,18 @@
     <Component class="javax.swing.JComboBox" name="opciones">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="5">
             <StringItem index="0" value="Crear Repositorio"/>
             <StringItem index="1" value="Clonar Repositorio"/>
-            <StringItem index="2" value="Commit"/>
-            <StringItem index="3" value="Push"/>
+            <StringItem index="2" value="Inicializar Repositorio"/>
+            <StringItem index="3" value="Commit"/>
+            <StringItem index="4" value="Push"/>
           </StringArray>
         </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="baceptar">
