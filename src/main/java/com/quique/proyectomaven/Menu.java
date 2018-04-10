@@ -5,7 +5,7 @@
  */
 package com.quique.proyectomaven;
 
-import static com.quique.proyectomaven.ElegirPath.elegirpath;
+import static com.quique.proyectomaven.Clonado.elegirpath;
 import javax.swing.JFileChooser;
 
 /**
@@ -18,12 +18,11 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     static String urlpath;
+    static String urlpath2;
 
     public Menu() {
         initComponents();
 
-        elegirpath = new JFileChooser();
-        elegirpath.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     }
 
     /**
@@ -93,32 +92,59 @@ public class Menu extends javax.swing.JFrame {
 
     private void baceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baceptarActionPerformed
 
-        if (opciones.getSelectedIndex() == 0) {
-            this.setVisible(false);
-            InicioSesion ini = new InicioSesion();
-            ini.setVisible(true);
-        } else if (opciones.getSelectedIndex() == 1) {
+        switch (opciones.getSelectedIndex()) {
 
-            this.setVisible(false);
-            ElegirPath a = new ElegirPath();
-            a.setVisible(true);
-        } else if (opciones.getSelectedIndex() == 2) {
-            this.setVisible(false);
-            int seleccion = elegirpath.showDialog(null, "Abrir");
-            switch (seleccion) {
+            case 0:
+                this.setVisible(false);
+                InicioSesion ini = new InicioSesion();
+                ini.setVisible(true);
+                break;
+            case 1:
 
-                case JFileChooser.APPROVE_OPTION:
-                    urlpath = elegirpath.getSelectedFile().getAbsolutePath();
-                    System.out.println(urlpath);
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                    break;
-                default:
-                    System.out.println("Error.");
+                this.setVisible(false);
+                Clonado a = new Clonado();
+                a.setVisible(true);
 
-            }
-            Codigo.inicializarRepositorio((urlpath + "/.git"));
-            this.setVisible(true);
+                break;
+
+            case 2:
+                this.setVisible(false);
+
+                elegirpath = new JFileChooser();
+                elegirpath.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                int seleccion = elegirpath.showDialog(null, "Abrir");
+                switch (seleccion) {
+
+                    case JFileChooser.APPROVE_OPTION:
+                        urlpath = elegirpath.getSelectedFile().getAbsolutePath();
+                        System.out.println(urlpath);
+                        break;
+                    case JFileChooser.CANCEL_OPTION:
+                        break;
+                    default:
+                        System.out.println("Error.");
+
+                }
+
+                Codigo.inicializarRepositorio(urlpath);
+                this.setVisible(true);
+                break;
+
+            case 3:
+                this.setVisible(false);
+                Commit objCommit = new Commit();
+                objCommit.setVisible(true);
+                break;
+
+            case 4:
+                this.setVisible(false);
+                Push objPush = new Push();
+                objPush.setVisible(true);
+                break;
+
+            default:
+                System.out.println("Default. Error.");
 
         }
 
