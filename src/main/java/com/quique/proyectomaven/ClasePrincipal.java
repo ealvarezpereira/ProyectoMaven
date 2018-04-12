@@ -15,6 +15,10 @@ public class ClasePrincipal {
     /**
      * @param args the command line arguments
      */  
+    
+    
+    //Todo esto en el main llama a la clase Menu. Es código con la apariencia de las ventanas de los frames.
+    
      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
