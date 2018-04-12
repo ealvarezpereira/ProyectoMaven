@@ -5,18 +5,16 @@
  */
 package com.quique.proyectomaven;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.InitCommand;
+import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.kohsuke.github.GHCreateRepositoryBuilder;
-import org.kohsuke.github.GitHub;
+import org.eclipse.jgit.transport.*;
+import org.kohsuke.github.*;
 
 /**
  *
@@ -25,6 +23,7 @@ import org.kohsuke.github.GitHub;
 public class Codigo {
 
     static GitHub github;
+    static Git git;
 
     public static void crearRepositorio(String usu, String ctra) {
 
@@ -42,8 +41,8 @@ public class Codigo {
 
         try {
             Git.cloneRepository()
-                    .setURI(ElegirPath.urlclone)
-                    .setDirectory(new File(ElegirPath.urlpath))
+                    .setURI(Clonado.urlclone)
+                    .setDirectory(new File(Clonado.urlpath))
                     .call();
         } catch (GitAPIException ex) {
 
@@ -52,15 +51,35 @@ public class Codigo {
 
     }
 
-    public static void inicializarRepositorio(String url) {
+    public static void inicializarRepositorio(String urlcarpeta) {
 
         InitCommand comm = new InitCommand();
 
         try {
-            comm.setDirectory(new File(url)).call();
+            comm.setDirectory(new File(urlcarpeta)).call();
         } catch (GitAPIException ex) {
             System.out.println("Error al inicializar repositorio. " + ex);
         }
     }
 
+    public static void hacerCommit(String mCommit, String urlcarpeta) {
+        try {
+            FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
+            Repository repository = repositoryBuilder.setGitDir(new File(urlcarpeta + "/.git"))
+                    .readEnvironment()
+                    .findGitDir()
+                    .setMustExist(true)
+                    .build();
+
+            Git git = new Git(repository);
+            AddCommand add = git.add();
+            add.addFilepattern(urlcarpeta + "/.git").call();
+            CommitCommand commit = git.commit();
+            commit.setMessage(mCommit).call();
+        } catch (IOException ex) {
+            System.out.println("Error:" + ex);
+        } catch (GitAPIException ex) {
+            System.out.println("Error:" + ex);
+        }
+    }
 }
