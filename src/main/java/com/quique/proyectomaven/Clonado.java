@@ -11,20 +11,28 @@ import javax.swing.JFileChooser;
  *
  * @author quique
  */
+
+/**
+ * 
+ * @param urlpath Es la url del repositorio al que queremos hacer el clonado.
+ * @param urlclone Es la url del repositorio remoto del que queremos hacer el clonado.
+ * @param elegirpath Es un JFileChooser de la paleta gráfica que te abre una ventana para poder seleccionar la ruta del repositorio.
+ */
 public class Clonado extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Prueba
-     */
     static String urlpath;
     static String urlclone;
     static JFileChooser elegirpath;
     Menu men = new Menu();
-
+    
+    
+    //Constructor en el que inicializamos el repositorio y creamos un objeto de tipo JFileChooser
     public Clonado() {
         initComponents();
 
         elegirpath = new JFileChooser();
+        
+        //Con este método restringimos al jfilechooser para que solo puedas seleccionar directorios.
         elegirpath.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
     }
@@ -108,29 +116,45 @@ public class Clonado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * @param evt es la ejecución de la acción del botón para seleccionar la ruta
+     */
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
 
+        //Abrimos el joptionchooser y segun seleccionemos los botones "Aceptar" o "Cancelar" 
+        //Va a salir del programa o recoger la ruta.
         int seleccion = elegirpath.showDialog(null, "Abrir");
         switch (seleccion) {
 
             case JFileChooser.APPROVE_OPTION:
                 urlpath = elegirpath.getSelectedFile().getAbsolutePath();
+                //System out para ver que pilla la ruta
                 System.out.println(urlpath);
                 break;
             case JFileChooser.CANCEL_OPTION:
                 break;
             default:
                 System.out.println("Error.");
-
         }
-
     }//GEN-LAST:event_pathActionPerformed
 
+    /**
+     * @param evt ActionEvent que captura la acción del botón cancelar.
+     *  Este action performed pone oculta esta ventana y hace visible la ventana menu
+     */
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         this.setVisible(false);
         men.setVisible(true);
     }//GEN-LAST:event_cancelarActionPerformed
 
+    /**
+     * @param evt ActionEvent que captura la acción del boton aceptar.
+     * @param url JTextField en el que introducimos la ruta del repositorio de GitHub
+     *  Este action performed a la variable urlclone le pasa la url del repositorio remoto que introducimos en el jtextfield
+     *  Llamamos al método hacer clonado y le pasamos la url del repositorio remoto y la url del directorio
+     */
+    
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         urlclone = url.getText();
         this.setVisible(false);
@@ -139,7 +163,6 @@ public class Clonado extends javax.swing.JFrame {
         urlpath = null;
         men.setVisible(true);
     }//GEN-LAST:event_aceptarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
