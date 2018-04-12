@@ -82,4 +82,37 @@ public class Codigo {
             System.out.println("Error:" + ex);
         }
     }
+    
+    
+    public static void hacerPush(String httpUrl, String localPath) {
+
+        Repository localRepo;
+        try {
+            localRepo = new FileRepository(localPath+"/.git");
+            Git git = new Git(localRepo);
+
+            // add remote repo:
+            RemoteAddCommand remoteAddCommand = git.remoteAdd();
+            remoteAddCommand.setName("origin");
+             remoteAddCommand.setUri(new URIish(httpUrl));
+            // you can add more settings here if needed
+            remoteAddCommand.call();
+
+            // push to remote:
+            PushCommand pushCommand = git.push();
+            String usu = JOptionPane.showInputDialog("Usuario");
+            String ctra = JOptionPane.showInputDialog("Contraseña");
+            pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(usu, ctra));
+            // you can add more settings here if needed
+            pushCommand.call();
+           
+        } catch (URISyntaxException ex) {
+            System.out.println("Error Uris sintax" + ex);
+        } catch (GitAPIException ex) {
+            System.out.println("Error gitApi " + ex);
+        } catch (IOException ex) {
+            System.out.println("Error IO " + ex);
+        }
+
+    }
 }
