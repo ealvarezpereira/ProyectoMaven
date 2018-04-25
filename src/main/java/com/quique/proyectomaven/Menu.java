@@ -20,6 +20,9 @@ public class Menu extends javax.swing.JFrame {
     static String urlpath;
     static String urlpath2;
 
+    /**
+     *
+     */
     public Menu() {
         initComponents();
 
@@ -90,6 +93,18 @@ public class Menu extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_bcancelarActionPerformed
 
+    
+    /**
+     * 
+     * @param evt Evento que captura la seleccion del JComboBox
+     * 
+     * Caso 0 Inicio de sesion
+     * Caso 1 Clonado
+     * Caso 2 Inicializar Repositorio
+     * Caso 3 Hacer commit
+     * Caso 4 Push
+     */
+    
     private void baceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baceptarActionPerformed
 
         switch (opciones.getSelectedIndex()) {

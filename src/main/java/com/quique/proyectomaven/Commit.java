@@ -11,6 +11,14 @@ import javax.swing.JFileChooser;
  *
  * @author quique
  */
+
+/**
+ * 
+ * @param urlpath Es la url del repositorio al que queremos hacer el clonado.
+ * @param urlclone Es la url del repositorio remoto del que queremos hacer el clonado.
+ * @param elegirpath Es un JFileChooser de la paleta gráfica que te abre una ventana para poder seleccionar la ruta del repositorio.
+ */
+
 public class Commit extends javax.swing.JFrame {
 
     /**
@@ -23,6 +31,8 @@ public class Commit extends javax.swing.JFrame {
 
     public Commit() {
         initComponents();
+        
+        //Creamos el JFileChooser para seleccionar la ruta
 
         elegirpath = new JFileChooser();
         elegirpath.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -108,12 +118,19 @@ public class Commit extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 
+     * @param evt Captura la accion del JFileChooser
+     */
+    
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
 
         int seleccion = elegirpath.showDialog(null, "Abrir");
         switch (seleccion) {
 
             case JFileChooser.APPROVE_OPTION:
+                
+                //En caso de que le demos a aceptar selecciona la ruta que pinchamos
                 urlpath = elegirpath.getSelectedFile().getAbsolutePath();
                 System.out.println(urlpath);
                 break;
@@ -126,16 +143,30 @@ public class Commit extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pathActionPerformed
 
+    
+    /**
+     * 
+     * @param evt Captura la accion del boton cancelar
+     * 
+     * Action Performed para volver a la ventana anterior
+     */
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         this.setVisible(false);
         men.setVisible(true);
     }//GEN-LAST:event_cancelarActionPerformed
 
+    /**
+     * 
+     * @param evt Captura la accion del boton aceptar
+     */
+    
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
+                //Pone este panel en invisible
                 urlclone = url.getText();
                 this.setVisible(false);
 
+                //Llama al método hacer commit y le pasa las url
                 Codigo.hacerCommit(url.getText(), urlpath);
                 urlpath = null;
                 men.setVisible(true);

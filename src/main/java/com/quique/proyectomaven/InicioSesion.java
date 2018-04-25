@@ -83,6 +83,8 @@ public class InicioSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //Llama al método crear repositorio y les pasa als variables de usuario y contraseña
     private void sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sesionActionPerformed
 
         Codigo.crearRepositorio(usu.getText(),ctra.getText());
